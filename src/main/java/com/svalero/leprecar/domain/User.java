@@ -36,4 +36,8 @@ public class User {
     @OneToMany(mappedBy = "user")
     @JsonBackReference(value = "user_bookings")
     private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference(value = "user_raitings")
+    private List<Raiting> raitings;
 }
