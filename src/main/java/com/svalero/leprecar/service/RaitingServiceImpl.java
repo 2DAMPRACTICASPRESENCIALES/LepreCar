@@ -1,9 +1,15 @@
 package com.svalero.leprecar.service;
 
+import com.svalero.leprecar.domain.Booking;
+import com.svalero.leprecar.domain.Car;
 import com.svalero.leprecar.domain.Raiting;
 import com.svalero.leprecar.domain.User;
+import com.svalero.leprecar.domain.dto.BookingInDTO;
+import com.svalero.leprecar.domain.dto.RaitingInDTO;
 import com.svalero.leprecar.exception.NotFoundException;
+import com.svalero.leprecar.repository.CarRepository;
 import com.svalero.leprecar.repository.RaitingRepository;
+import com.svalero.leprecar.repository.UserRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +23,12 @@ public class RaitingServiceImpl implements RaitingService {
     private RaitingRepository raitingRepository;
 
     @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private CarRepository carRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @Override
@@ -26,8 +38,20 @@ public class RaitingServiceImpl implements RaitingService {
     }
 
     @Override
-    public Raiting addRaiting(Raiting raiting) {
-        return raitingRepository.save(raiting);
+    public Raiting addRaiting(RaitingInDTO raitingInDTO) throws NotFoundException {
+        Raiting newRaiting = new Raiting();
+
+        User user = userRepository.findById(raitingInDTO.getUserId())
+                .orElseThrow(() -> new NotFoundException(new User()));
+
+        Car car = carRepository.findById(raitingInDTO.getCarId())
+                .orElseThrow(() -> new NotFoundException(new Car()));
+
+        modelMapper.map(raitingInDTO, newRaiting);
+        newRaiting.setUser(user);
+        newRaiting.setCar(car);
+
+        return raitingRepository.save(newRaiting);
     }
 
     @Override
@@ -39,11 +63,19 @@ public class RaitingServiceImpl implements RaitingService {
     }
 
     @Override
-    public Raiting modifyRaiting(long id, Raiting raiting) throws NotFoundException {
+    public Raiting modifyRaiting(long id, RaitingInDTO raitingInDTO) throws NotFoundException {
         Raiting raitingModified = raitingRepository.findById(id)
+                .orElseThrow(() -> new NotFoundException(new Raiting()));
+
+        User user = userRepository.findById(raitingInDTO.getUserId())
                 .orElseThrow(() -> new NotFoundException(new User()));
 
-        modelMapper.map(raiting, raitingModified);
+        Car car = carRepository.findById(raitingInDTO.getCarId())
+                .orElseThrow(() -> new NotFoundException(new Car()));
+
+        modelMapper.map(raitingInDTO, raitingModified);
+        raitingModified.setUser(user);
+        raitingModified.setCar(car);
 
         return raitingRepository.save(raitingModified);
     }

@@ -32,7 +32,8 @@ public class Car {
     private float hourPrice;
 
     //Relación cars con booking
-    @OneToMany(mappedBy = "car",cascade = CascadeType.REMOVE, orphanRemoval = true) //Para borrar en cascada
+    @OneToMany(mappedBy = "car") //Para borrar en cascada
+    @JsonBackReference(value = "car_booking")
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "car")
