@@ -43,7 +43,9 @@ public class UserServiceImpl implements UserService {
         User userModified = userRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(new User()));
 
-        modelMapper.map(user, userModified);
+        userModified.setName(user.getName());
+        userModified.setSurnames(user.getSurnames());
+        userModified.setBirthDate(user.getBirthDate());
 
         return userRepository.save(userModified);
     }

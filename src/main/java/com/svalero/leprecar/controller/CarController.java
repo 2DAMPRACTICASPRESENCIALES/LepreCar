@@ -26,9 +26,12 @@ public class CarController {
     //private final Logger logger = LoggerFactory.getLogger(ChargingPointController.class);
 
     @GetMapping("/cars")
-    public ResponseEntity<List<Car>> getCar() {
+    public ResponseEntity<List<Car>> getCar(@RequestParam(name = "brand", defaultValue = "", required = false) String brand) {
         //logger.debug("end getUsers");
-        return new ResponseEntity<>(carService.findAll(), HttpStatus.OK);
+        if(brand.equals(""))
+            return new ResponseEntity<>(carService.findAll(), HttpStatus.OK);
+
+        return new ResponseEntity<>(carService.findCarByBrand(brand), HttpStatus.OK);
     }
 
     @PostMapping("/cars")

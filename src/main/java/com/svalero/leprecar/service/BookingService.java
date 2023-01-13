@@ -14,4 +14,5 @@ public interface BookingService {
     void deleteBooking(long id) throws NotFoundException;
 
     Booking modifyBooking(long id, BookingInDTO bookingInDTO) throws NotFoundException;
+
 }

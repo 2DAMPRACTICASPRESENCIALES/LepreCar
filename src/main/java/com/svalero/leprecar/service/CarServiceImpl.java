@@ -62,4 +62,11 @@ public class CarServiceImpl implements CarService {
 
         return carRepository.save(carModify);
     }
+
+    @Override
+    public List<Car> findCarByBrand(String brand) {
+        return carRepository.findByBrand(brand);
+    }
+
+
 }

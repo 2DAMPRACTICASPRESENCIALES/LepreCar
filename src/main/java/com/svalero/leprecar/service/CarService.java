@@ -14,4 +14,6 @@ public interface CarService {
     void deleteCar(long id) throws NotFoundException;
 
     Car modifyCar(long id, CarInDTO carInDTO) throws NotFoundException;
+
+    List<Car> findCarByBrand(String brand);
 }

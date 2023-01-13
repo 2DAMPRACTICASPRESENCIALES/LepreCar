@@ -14,6 +14,8 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -47,7 +49,9 @@ public class RaitingServiceImpl implements RaitingService {
         Car car = carRepository.findById(raitingInDTO.getCarId())
                 .orElseThrow(() -> new NotFoundException(new Car()));
 
-        modelMapper.map(raitingInDTO, newRaiting);
+        newRaiting.setComment(raitingInDTO.getComment());
+        newRaiting.setRate(raitingInDTO.getRate());
+        newRaiting.setDate(raitingInDTO.getDate());
         newRaiting.setUser(user);
         newRaiting.setCar(car);
 
