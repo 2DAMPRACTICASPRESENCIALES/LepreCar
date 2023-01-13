@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -27,4 +29,8 @@ public class Car {
     private int km;
     @Column
     private float hourPrice;
+
+    //Relación cars con booking
+    @OneToMany(mappedBy = "car",cascade = CascadeType.REMOVE, orphanRemoval = true) //Para borrar en cascada
+    private List<Booking> bookings;
 }
