@@ -27,4 +27,8 @@ public class Booking {
     @Column
     private boolean isAnnullable;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
 }

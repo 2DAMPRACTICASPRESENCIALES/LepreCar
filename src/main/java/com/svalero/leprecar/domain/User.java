@@ -1,5 +1,6 @@
 package com.svalero.leprecar.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -9,6 +10,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -30,4 +32,8 @@ public class User {
     @Column
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate birthDate;
+
+    @OneToMany(mappedBy = "user")
+    @JsonBackReference(value = "user_bookings")
+    private List<Booking> bookings;
 }
