@@ -8,8 +8,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 public class ErrorMessage {
 
     private int code;
