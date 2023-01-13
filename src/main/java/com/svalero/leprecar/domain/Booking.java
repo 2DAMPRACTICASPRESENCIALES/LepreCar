@@ -27,4 +27,9 @@ public class Booking {
     @Column
     private boolean isAnnullable;
 
+    //Relacion Coches Reservas
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+    private Car car;
+
 }
