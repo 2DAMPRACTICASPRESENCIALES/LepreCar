@@ -2,6 +2,7 @@ package com.svalero.leprecar.controller;
 
 import com.svalero.leprecar.domain.Booking;
 import com.svalero.leprecar.domain.User;
+import com.svalero.leprecar.domain.dto.BookingInDTO;
 import com.svalero.leprecar.exception.ErrorMessage;
 import com.svalero.leprecar.exception.NotFoundException;
 import com.svalero.leprecar.service.BookingService;
@@ -31,9 +32,9 @@ public class BookingController {
     }
 
     @PostMapping("/bookings")
-    public ResponseEntity<Booking> addBooking(@RequestBody Booking booking) {
+    public ResponseEntity<Booking> addBooking(@RequestBody BookingInDTO bookingInDTO) throws NotFoundException {
         //logger.debug("begin addUser");
-        Booking newBooking = bookingService.addBooking(booking);
+        Booking newBooking = bookingService.addBooking(bookingInDTO);
         //logger.debug("end addUser");
         return ResponseEntity.status(HttpStatus.OK).body(newBooking);
     }
@@ -47,9 +48,9 @@ public class BookingController {
     }
 
     @PutMapping("/bookings/{id}")
-    public ResponseEntity<Booking> modifyBus(@PathVariable long id, @RequestBody Booking booking) throws NotFoundException{
+    public ResponseEntity<Booking> modifyBus(@PathVariable long id, @RequestBody BookingInDTO bookingInDTO) throws NotFoundException{
         //logger.debug("begin modifyUser");
-        Booking modifiedBooking = bookingService.modifyBooking(id, booking);
+        Booking modifiedBooking = bookingService.modifyBooking(id, bookingInDTO);
         //logger.debug("end modifyUser");
         return ResponseEntity.status(HttpStatus.OK).body(modifiedBooking);
     }

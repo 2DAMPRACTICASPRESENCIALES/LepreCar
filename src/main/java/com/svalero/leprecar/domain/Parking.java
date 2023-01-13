@@ -1,5 +1,6 @@
 package com.svalero.leprecar.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -26,8 +28,8 @@ public class Parking {
     @Column
     private float longitude;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id")
-    private Car car;
+    @OneToMany(mappedBy = "parking")
+    @JsonBackReference(value = "parking_cars")
+    private List<Car> cars;
 
 }

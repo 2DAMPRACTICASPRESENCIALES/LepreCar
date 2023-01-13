@@ -2,6 +2,7 @@ package com.svalero.leprecar.controller;
 
 import com.svalero.leprecar.domain.Car;
 import com.svalero.leprecar.domain.User;
+import com.svalero.leprecar.domain.dto.CarInDTO;
 import com.svalero.leprecar.exception.ErrorMessage;
 import com.svalero.leprecar.exception.NotFoundException;
 import com.svalero.leprecar.service.CarService;
@@ -31,9 +32,9 @@ public class CarController {
     }
 
     @PostMapping("/cars")
-    public ResponseEntity<Car> addCar(@RequestBody Car car) {
+    public ResponseEntity<Car> addCar(@RequestBody CarInDTO carInDTO) throws NotFoundException {
         //logger.debug("begin addUser");
-        Car newCar = carService.addCar(car);
+        Car newCar = carService.addCar(carInDTO);
         //logger.debug("end addUser");
         return ResponseEntity.status(HttpStatus.OK).body(newCar);
     }
@@ -47,9 +48,9 @@ public class CarController {
     }
 
     @PutMapping("/cars/{id}")
-    public ResponseEntity<Car> modifyCar(@PathVariable long id, @RequestBody Car car) throws NotFoundException{
+    public ResponseEntity<Car> modifyCar(@PathVariable long id, @RequestBody CarInDTO carInDTO) throws NotFoundException{
         //logger.debug("begin modifyUser");
-        Car modifiedCar = carService.modifyCar(id, car);
+        Car modifiedCar = carService.modifyCar(id, carInDTO);
         //logger.debug("end modifyUser");
         return ResponseEntity.status(HttpStatus.OK).body(modifiedCar);
     }

@@ -2,6 +2,7 @@ package com.svalero.leprecar.controller;
 
 import com.svalero.leprecar.domain.Raiting;
 import com.svalero.leprecar.domain.User;
+import com.svalero.leprecar.domain.dto.RaitingInDTO;
 import com.svalero.leprecar.exception.ErrorMessage;
 import com.svalero.leprecar.exception.NotFoundException;
 import com.svalero.leprecar.service.RaitingService;
@@ -32,9 +33,9 @@ public class RaitingController {
     }
 
     @PostMapping("/raitings")
-    public ResponseEntity<Raiting> addRaiting(@RequestBody Raiting raiting) {
+    public ResponseEntity<Raiting> addRaiting(@RequestBody RaitingInDTO raitingInDTO) throws NotFoundException {
         //logger.debug("begin addUser");
-        Raiting newRaiting = raitingService.addRaiting(raiting);
+        Raiting newRaiting = raitingService.addRaiting(raitingInDTO);
         //logger.debug("end addUser");
         return ResponseEntity.status(HttpStatus.OK).body(newRaiting);
     }
@@ -48,9 +49,9 @@ public class RaitingController {
     }
 
     @PutMapping("/raitings/{id}")
-    public ResponseEntity<Raiting> modifyRaiting(@PathVariable long id, @RequestBody Raiting raiting) throws NotFoundException{
+    public ResponseEntity<Raiting> modifyRaiting(@PathVariable long id, @RequestBody RaitingInDTO raitingInDTO) throws NotFoundException{
         //logger.debug("begin modifyUser");
-        Raiting modifiedRaiting = raitingService.modifyRaiting(id, raiting);
+        Raiting modifiedRaiting = raitingService.modifyRaiting(id, raitingInDTO);
         //logger.debug("end modifyUser");
         return ResponseEntity.status(HttpStatus.OK).body(modifiedRaiting);
     }
