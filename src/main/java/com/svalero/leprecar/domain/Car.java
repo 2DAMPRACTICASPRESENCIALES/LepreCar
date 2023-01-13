@@ -1,5 +1,6 @@
 package com.svalero.leprecar.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -33,4 +34,12 @@ public class Car {
     //Relación cars con booking
     @OneToMany(mappedBy = "car",cascade = CascadeType.REMOVE, orphanRemoval = true) //Para borrar en cascada
     private List<Booking> bookings;
+
+    @OneToMany(mappedBy = "car")
+    @JsonBackReference(value = "car_raitings")
+    private List<Raiting> raitings;
+
+    @ManyToOne
+    @JoinColumn(name = "parking_id")
+    private Parking parking;
 }
