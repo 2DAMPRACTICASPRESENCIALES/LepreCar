@@ -33,11 +33,11 @@ public class User {
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate birthDate;
 
-    @OneToMany(mappedBy = "user")
+    /*@OneToMany(mappedBy = "user")
     @JsonBackReference(value = "user_bookings")
     private List<Booking> bookings;
 
     @OneToMany(mappedBy = "user")
     @JsonBackReference(value = "user_raitings")
-    private List<Raiting> raitings;
+    private List<Raiting> raitings;*/
 }

@@ -15,9 +15,9 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity(name = "bookings")
 public class Booking {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
     @Column
     @JsonFormat(pattern="yyyy-MM-dd")
     private LocalDate startDate;
