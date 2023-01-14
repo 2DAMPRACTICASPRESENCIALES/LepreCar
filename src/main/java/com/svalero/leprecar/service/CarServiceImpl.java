@@ -57,7 +57,12 @@ public class CarServiceImpl implements CarService {
         Parking parking = parkingRepository.findById(carInDTO.getParkingId())
                 .orElseThrow(() -> new NotFoundException(new Parking()));
 
-        modelMapper.map(carInDTO, carModify);
+        carModify.setBrand(carInDTO.getBrand());
+        carModify.setModel(carInDTO.getModel());
+        carModify.setLicensePlate(carInDTO.getLicensePlate());
+        carModify.setHybrid(carInDTO.isHybrid());
+        carModify.setKm(carInDTO.getKm());
+        carModify.setHourPrice(carInDTO.getHourPrice());
         carModify.setParking(parking);
 
         return carRepository.save(carModify);

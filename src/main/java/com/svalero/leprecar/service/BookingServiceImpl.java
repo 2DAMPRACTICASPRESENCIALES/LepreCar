@@ -66,7 +66,9 @@ public class BookingServiceImpl implements BookingService {
         Car car = carRepository.findById(bookingInDTO.getCarId())
                 .orElseThrow(() -> new NotFoundException(new Car()));
 
-        modelMapper.map(bookingInDTO, bookingModified);
+        bookingModified.setStartDate(bookingInDTO.getStartDate());
+        bookingModified.setEndDate(bookingInDTO.getEndDate());
+        bookingModified.setAnnullable(bookingInDTO.isAnnullable());
         bookingModified.setUser(user);
         bookingModified.setCar(car);
 

@@ -43,7 +43,10 @@ public class ParkingServiceImpl implements ParkingService {
         Parking parkingModified = parkingRepository.findById(id)
                 .orElseThrow(() -> new NotFoundException(new Parking()));
 
-        modelMapper.map(parking, parkingModified);
+        parkingModified.setAdress(parking.getAdress());
+        parkingModified.setAlwaysOpen(parking.isAlwaysOpen());
+        parkingModified.setLatitude(parking.getLatitude());
+        parkingModified.setLongitude(parking.getLongitude());
 
         return parkingRepository.save(parkingModified);
     }

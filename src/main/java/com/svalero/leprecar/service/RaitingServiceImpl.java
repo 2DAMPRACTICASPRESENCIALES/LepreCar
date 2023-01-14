@@ -47,7 +47,9 @@ public class RaitingServiceImpl implements RaitingService {
         Car car = carRepository.findById(raitingInDTO.getCarId())
                 .orElseThrow(() -> new NotFoundException(new Car()));
 
-        modelMapper.map(raitingInDTO, newRaiting);
+        newRaiting.setComment(raitingInDTO.getComment());
+        newRaiting.setDate(raitingInDTO.getDate());
+        newRaiting.setRate(raitingInDTO.getRate());
         newRaiting.setUser(user);
         newRaiting.setCar(car);
 
@@ -73,7 +75,9 @@ public class RaitingServiceImpl implements RaitingService {
         Car car = carRepository.findById(raitingInDTO.getCarId())
                 .orElseThrow(() -> new NotFoundException(new Car()));
 
-        modelMapper.map(raitingInDTO, raitingModified);
+        raitingModified.setComment(raitingInDTO.getComment());
+        raitingModified.setDate(raitingInDTO.getDate());
+        raitingModified.setRate(raitingInDTO.getRate());
         raitingModified.setUser(user);
         raitingModified.setCar(car);
 
